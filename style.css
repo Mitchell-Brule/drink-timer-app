@@ -1,35 +1,74 @@
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
+  background-color: #111;
+  color: #f8f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+.app {
   text-align: center;
-  margin: 2rem;
-  background: #111;
-  color: #fff;
+  background: #1e1e1e;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  width: 90%;
+  max-width: 500px;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 input, select {
-  margin: 6px;
-  padding: 8px;
-  border-radius: 6px;
+  padding: 6px;
+  border-radius: 8px;
   border: none;
-  outline: none;
+  font-size: 1rem;
 }
 
 button {
-  padding: 10px 20px;
-  margin: 10px;
+  background: #28a745;
+  color: white;
   border: none;
   border-radius: 10px;
-  background-color: #3fa34d;
-  color: white;
-  font-weight: bold;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 10px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
 button:hover {
-  background-color: #45c15c;
+  background: #34d058;
 }
 
-hr {
+.hidden {
+  display: none;
+}
+
+#timer {
+  font-size: 2.5rem;
   margin: 20px 0;
-  border: 0.5px solid #333;
+  color: #00ff91;
+}
+
+.alert {
+  background: #ff4444 !important;
 }
