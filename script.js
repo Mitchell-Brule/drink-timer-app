@@ -1,70 +1,79 @@
-let drinks = 0;
-let timer;
-let countdown = 0;
-let drinkInterval = 0;
-let totalAllowed = 0;
+let timerInterval;
+let nextDrinkTime = 0;
 
-document.getElementById('startPlan').addEventListener('click', () => {
+const startPlanBtn = document.getElementById('startPlan');
+const addDrinkBtn = document.getElementById('addDrink');
+const resetBtn = document.getElementById('reset');
+const statusDiv = document.getElementById('status');
+const timerDisplay = document.getElementById('timer');
+const drinkStatus = document.getElementById('drinkStatus');
+
+startPlanBtn.addEventListener('click', () => {
   const start = document.getElementById('startTime').value;
   const end = document.getElementById('endTime').value;
-  const weight = parseFloat(document.getElementById('weight').value);
-  const level = document.getElementById('drunkLevel').value;
+  const level = document.getElementById('level').value;
 
-  if (!start || !end || !weight) {
-    alert("Please fill in weight, start and end time.");
+  if (!start || !end) {
+    alert('Please select start and end times.');
     return;
   }
 
-  const startHour = parseInt(start.split(':')[0]);
-  const endHour = parseInt(end.split(':')[0]);
-  let duration = endHour - startHour;
-  if (duration <= 0) duration += 24;
+  const startMins = toMinutes(start);
+  const endMins = toMinutes(end);
+  const duration = endMins - startMins;
+  let drinksAllowed = { light: 3, tipsy: 5, drunk: 8, obliterated: 12 }[level];
+  nextDrinkTime = Math.floor(duration / drinksAllowed);
 
-  // Adjust allowed drinks by desired level
-  if (level === 'light') totalAllowed = Math.round(duration * 1);
-  if (level === 'tipsy') totalAllowed = Math.round(duration * 1.5);
-  if (level === 'drunk') totalAllowed = Math.round(duration * 2);
-
-  drinkInterval = Math.floor((duration * 60) / totalAllowed);
-
-  document.getElementById('limitText').textContent =
-    `Plan allows ~${totalAllowed} drinks between now and your end time. One every ${drinkInterval} min.`;
-
-  document.getElementById('drinkingSection').style.display = 'block';
+  statusDiv.classList.remove('hidden');
+  drinkStatus.textContent = 'Plan started! Next drink in:';
+  startTimer(nextDrinkTime * 60);
 });
 
-document.getElementById('addDrink').addEventListener('click', () => {
-  drinks++;
-  document.getElementById('statusText').textContent = `You’ve had ${drinks} drinks.`;
-  countdown = drinkInterval * 60; // convert minutes to seconds
-  startTimer();
-
-  if (drinks >= totalAllowed) {
-    alert("You've reached your planned drink limit!");
-  }
+addDrinkBtn.addEventListener('click', () => {
+  startTimer(nextDrinkTime * 60);
 });
 
-document.getElementById('reset').addEventListener('click', () => {
-  drinks = 0;
-  clearInterval(timer);
-  document.getElementById('statusText').textContent = "You’ve had 0 drinks.";
-  document.getElementById('timer').textContent = "00:00";
-  document.getElementById('limitText').textContent = "";
-  document.getElementById('drinkingSection').style.display = 'none';
+resetBtn.addEventListener('click', () => {
+  clearInterval(timerInterval);
+  timerDisplay.textContent = '00:00';
+  statusDiv.classList.add('hidden');
 });
 
-function startTimer() {
-  clearInterval(timer);
-  timer = setInterval(() => {
-    if (countdown > 0) {
-      countdown--;
-      let min = Math.floor(countdown / 60);
-      let sec = countdown % 60;
-      document.getElementById('timer').textContent = `${min}:${sec.toString().padStart(2, '0')}`;
+function startTimer(seconds) {
+  clearInterval(timerInterval);
+  let remaining = seconds;
+
+  timerInterval = setInterval(() => {
+    const mins = Math.floor(remaining / 60);
+    const secs = remaining % 60;
+    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+    if (remaining <= 0) {
+      clearInterval(timerInterval);
+      document.body.classList.add('alert');
+      drinkStatus.textContent = '🍻 You can have your next drink!';
+      notifyUser();
     } else {
-      clearInterval(timer);
-      alert("You can have your next drink!");
+      document.body.classList.remove('alert');
+      remaining--;
     }
   }, 1000);
 }
 
+function toMinutes(time) {
+  const [h, m] = time.split(':').map(Number);
+  return h * 60 + m;
+}
+
+// 🔔 Basic phone notification
+function notifyUser() {
+  if (Notification.permission === 'granted') {
+    new Notification('Drink Timer', { body: 'Time for your next drink! 🍺' });
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then(permission => {
+      if (permission === 'granted') {
+        new Notification('Drink Timer', { body: 'Time for your next drink! 🍺' });
+      }
+    });
+  }
+}
