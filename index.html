@@ -1,27 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drink Timer</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="script.js"></script>
-  <link rel="manifest" href="manifest.json">
-</head>
 <body>
   <h1>Drink Timer 🍻</h1>
 
   <div class="input-section">
+    <label>Weight (kg):</label>
+    <input type="number" id="weight" placeholder="e.g. 75">
+
+    <label>Age:</label>
+    <input type="number" id="age" placeholder="e.g. 22">
+
+    <label>Level of drunk desired:</label>
+    <select id="drunkLevel">
+      <option value="light">Light Buzz</option>
+      <option value="tipsy">Tipsy</option>
+      <option value="drunk">Drunk</option>
+    </select>
+
+    <label>Start Time:</label>
+    <input type="time" id="startTime">
+
+    <label>End Time (when heading home):</label>
+    <input type="time" id="endTime">
+
+    <button id="startPlan">Start Plan</button>
+  </div>
+
+  <hr>
+
+  <div id="drinkingSection" style="display:none;">
     <label>Drinks Consumed:</label>
     <input type="number" id="drinksInput" value="0" min="0">
     <button id="addDrink">Add Drink</button>
-  </div>
 
-  <div class="status">
     <p id="statusText">You’ve had 0 drinks.</p>
     <p id="timerText">Next drink available in: <span id="timer">00:00</span></p>
-  </div>
+    <p id="limitText"></p>
 
-  <button id="reset">Reset</button>
+    <button id="reset">Reset</button>
+  </div>
 </body>
-</html>
+
