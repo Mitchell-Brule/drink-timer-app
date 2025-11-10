@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Drink Timer 🍻</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
 </head>
 <body>
   <div class="app">
@@ -27,8 +28,10 @@
     </div>
 
     <div id="status" class="hidden">
-      <p>🍺 <span id="drinkStatus">Setting up your plan...</span></p>
+      <h2>🍺 Drink Plan:</h2>
+      <ul id="drinkList"></ul>
       <h2 id="timer">00:00</h2>
+      <p id="drinkStatus"></p>
       <button id="addDrink">Add Drink</button>
       <button id="reset">Reset</button>
     </div>
@@ -37,3 +40,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
