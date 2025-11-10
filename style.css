@@ -7,6 +7,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
+  transition: background 0.5s;
 }
 
 .app {
@@ -71,4 +72,23 @@ button:hover {
 
 .alert {
   background: #ff4444 !important;
+}
+
+#drinkList {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+#drinkList li {
+  padding: 8px;
+  border-radius: 6px;
+  margin: 4px 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+.currentDrink {
+  background: #00ff91;
+  color: #111;
+  font-weight: bold;
 }
