@@ -1,47 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Drink Timer 🍻</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Drink Timer — Coach</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <h1>Drink Timer 🍻</h1>
+  <div class="app">
+    <header>
+      <h1>Drink Timer</h1>
+      <p class="subtitle">Installable PWA • Offline after first load</p>
+    </header>
 
-  <div class="input-section">
-    <label>Weight (kg):</label>
-    <input type="number" id="weight" placeholder="e.g. 75">
+    <section class="card settings">
+      <h2>Profile & Plan</h2>
+      <div class="row">
+        <label>Weight (lb)
+          <input id="weight" type="number" min="80" step="1" placeholder="e.g. 165"/>
+        </label>
 
-    <label>Age:</label>
-    <input type="number" id="age" placeholder="e.g. 22">
+        <label>Age
+          <input id="age" type="number" min="18" step="1" placeholder="e.g. 24"/>
+        </label>
 
-    <label>Level of drunk desired:</label>
-    <select id="drunkLevel">
-      <option value="light">Light Buzz</option>
-      <option value="tipsy">Tipsy</option>
-      <option value="drunk">Drunk</option>
-      <option value="obliterated">Obliterated</option>
-    </select>
+        <label>Sex
+          <select id="sex">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </label>
+      </div>
 
-    <label>Start Time:</label>
-    <input type="time" id="startTime">
+      <div class="row">
+        <label>Desired level
+          <select id="level">
+            <option value="light">Light Buzz</option>
+            <option value="tipsy">Tipsy</option>
+            <option value="drunk">Drunk</option>
+            <option value="obliterated">Obliterated</option>
+          </select>
+        </label>
 
-    <label>End Time:</label>
-    <input type="time" id="endTime">
+        <label>Start (12-hr)
+          <input id="startTime" type="time" />
+        </label>
 
-    <button id="startPlan">Start Plan</button>
+        <label>End (12-hr)
+          <input id="endTime" type="time" />
+        </label>
+      </div>
+
+      <div class="row">
+        <button id="startPlan">Create Plan</button>
+        <button id="clearPlan" class="muted">Clear</button>
+      </div>
+
+      <details class="hintbox">
+        <summary>Telegram & advanced (optional)</summary>
+        <div class="row">
+          <label>Telegram bot token (client test)
+            <input id="tgToken" type="text" placeholder="bot_token (not secure in client)"/>
+          </label>
+          <label>Chat ID
+            <input id="tgChat" type="text" placeholder="chat id"/>
+          </label>
+        </div>
+        <p class="hint">For security, deploy the server proxy (Render) and set the proxy URL in settings (recommended).</p>
+      </details>
+    </section>
+
+    <section id="planSection" class="card hidden">
+      <div class="planTop">
+        <div>
+          <strong id="planSummary">—</strong>
+          <div class="muted small" id="planSub">—</div>
+        </div>
+        <div class="controls">
+          <button id="speedDown" class="small">Slow Down</button>
+          <button id="speedUp" class="small">Speed Up</button>
+        </div>
+      </div>
+
+      <div class="statusRow">
+        <div class="statusCard">
+          <div class="label">Drinks consumed</div>
+          <div id="drinksCount" class="big">0</div>
+          <div class="row">
+            <button id="addDrink" class="small">+ Drink</button>
+            <button id="undoDrink" class="small muted">−</button>
+            <button id="resetCount" class="small muted">Reset</button>
+          </div>
+        </div>
+
+        <div class="statusCard">
+          <div class="label">Next / countdown</div>
+          <div id="nextTime" class="big">--:--</div>
+          <div id="countdown" class="muted small">—</div>
+        </div>
+
+        <div class="statusCard">
+          <div class="label">Estimated BAC</div>
+          <div id="bacVal" class="big">0.000</div>
+          <div id="bacLabel" class="muted small">—</div>
+        </div>
+      </div>
+
+      <ul id="scheduleList" class="schedule"></ul>
+    </section>
+
+    <footer class="card small muted">
+      Tip: Load once online to cache files. Notifications require permission. For secure Telegram messages use a server proxy (recommended).
+    </footer>
   </div>
 
-  <div id="drinkPlan" class="plan-section"></div>
-
-  <div id="drinkingSection" style="display:none;">
-    <p id="statusText">You’ve had 0 drinks.</p>
-    <p id="timerText">Next drink in: <span id="timer">00:00</span></p>
-    <button id="reset">Reset</button>
-  </div>
-
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(e => console.warn('SW', e));
+    }
+  </script>
 </body>
 </html>
