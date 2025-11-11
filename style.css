@@ -1,59 +1,66 @@
-:root{
-  --bg:#0b0b0d;
-  --card:#151516;
-  --accent:#00ff91;
-  --muted:#9aa0a6;
-  --danger:#ff4d4f;
-  --glass: rgba(255,255,255,0.02);
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  background:linear-gradient(180deg,#050505,var(--bg));
-  color:#e8eef1;
-  font-family:Inter, "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-}
-.app{
-  width:100%;
-  max-width:920px;
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
-}
-h1{margin:0 0 6px 0; font-size:28px; color:var(--accent); text-align:center}
-
-.card{
-  background:var(--card);
-  border-radius:12px;
-  padding:14px;
-  box-shadow:0 6px 22px rgba(0,0,0,0.6);
+body {
+  font-family: "Poppins", sans-serif;
+  text-align: center;
+  background: #000;
+  color: #fff;
+  margin: 2rem;
 }
 
-.inputs .row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
-label{display:flex;flex-direction:column; font-size:13px; color:var(--muted); min-width:120px}
-input[type="number"], input[type="time"], input[type="text"], select{
-  padding:8px 10px;border-radius:8px;border:none;background:var(--glass);color:inherit;outline:none;
+h1 {
+  font-size: 2.2em;
+  color: #ffb300;
+  text-shadow: 0 0 10px #ffb300;
 }
-button{background:linear-gradient(180deg,#00d084,#00a86b); color:#061207;border:none;padding:10px 12px;border-radius:10px;font-weight:700;cursor:pointer}
-button.muted{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);padding:8px 10px}
-button:active{transform:translateY(1px)}
 
-.hidden{display:none}
+.input-section {
+  background: #111;
+  padding: 15px;
+  border-radius: 15px;
+  display: inline-block;
+}
 
-.planHeader{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.statusRow{display:flex;gap:20px;align-items:center;justify-content:space-between;margin-top:12px;flex-wrap:wrap}
-.label{font-size:12px;color:var(--muted)}
-.big{font-size:28px;font-weight:800;color:var(--accent)}
+input, select {
+  margin: 5px;
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
 
-.schedule{list-style:none;padding:0;margin-top:12px;max-height:360px;overflow:auto}
-.schedule li{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015))}
-.schedule li.now{border:1px solid var(--accent);background:linear-gradient(90deg, rgba(0,255,145,0.04), rgba(0,255,145,0.02))}
-.schedule li.past{opacity:0.6;text-decoration:line-through}
-.small{font-size:12px;padding:6px 8px}
-.hint{font-size:12px;color:var(--muted);margin-top:6px}
-footer.small{font-size:12px;text-align:center}
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: #3fa34d;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #4fd85d;
+}
+
+.plan-section {
+  margin-top: 20px;
+}
+
+.drink-time {
+  padding: 8px;
+  margin: 4px;
+  border-radius: 8px;
+  background: #222;
+}
+
+.drink-time.active {
+  background: #4fd85d;
+  color: black;
+  font-weight: bold;
+}
+
+.drink-time.done {
+  background: #555;
+  text-decoration: line-through;
+}
