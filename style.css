@@ -1,66 +1,38 @@
-body {
-  font-family: "Poppins", sans-serif;
-  text-align: center;
-  background: #000;
-  color: #fff;
-  margin: 2rem;
+:root{
+  --bg:#060607; --card:#111214; --accent:#00ff91; --muted:#9aa0a6; --danger:#ff6b6b;
 }
+*{box-sizing:border-box}
+body{
+  margin:0; min-height:100vh; font-family:Inter,system-ui, -apple-system,"Segoe UI",Roboto,Arial; color:#eaf2f1;
+  background:linear-gradient(180deg,#020203,var(--bg)); padding:20px; display:flex; align-items:center; justify-content:center;
+}
+.app{width:100%;max-width:980px;display:grid;gap:18px}
+header{text-align:center}
+h1{margin:0;color:var(--accent);font-size:28px}
+.subtitle{margin:6px 0 0;color:var(--muted);font-size:13px}
 
-h1 {
-  font-size: 2.2em;
-  color: #ffb300;
-  text-shadow: 0 0 10px #ffb300;
-}
+.card{background:var(--card);padding:14px;border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.6)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+label{display:flex;flex-direction:column;font-size:13px;color:var(--muted);min-width:130px}
+input,select{padding:8px;border-radius:8px;border:none;background:rgba(255,255,255,0.02);color:inherit}
+button{background:linear-gradient(180deg,#00d084,#00a86b);color:#041104;border:none;padding:8px 12px;border-radius:10px;font-weight:700;cursor:pointer}
+button.muted{background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted)}
+button.small{padding:6px 8px;font-size:13px;border-radius:8px}
+.hidden{display:none}
+.details{font-size:12px;color:var(--muted)}
 
-.input-section {
-  background: #111;
-  padding: 15px;
-  border-radius: 15px;
-  display: inline-block;
-}
+.planTop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.planTop .muted{font-size:12px}
+.statusRow{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.statusCard{flex:1;min-width:180px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.015))}
+.label{font-size:12px;color:var(--muted)}
+.big{font-size:26px;font-weight:800;color:var(--accent);margin-top:6px}
+.muted.small{font-size:12px;color:var(--muted)}
 
-input, select {
-  margin: 5px;
-  padding: 8px;
-  border-radius: 6px;
-  border: none;
-  outline: none;
-}
+.schedule{list-style:none;padding:0;margin-top:12px;max-height:360px;overflow:auto}
+.schedule li{display:flex;justify-content:space-between;align-items:center;padding:10px;border-radius:8px;margin-bottom:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02))}
+.schedule li.now{border:2px solid var(--accent);background:linear-gradient(90deg, rgba(0,255,145,0.04), rgba(0,255,145,0.02));color:#001}
+.schedule li.past{opacity:0.6;text-decoration:line-through}
+.hintbox summary{cursor:pointer;color:var(--muted)}
+.small{font-size:12px}
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  background-color: #3fa34d;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #4fd85d;
-}
-
-.plan-section {
-  margin-top: 20px;
-}
-
-.drink-time {
-  padding: 8px;
-  margin: 4px;
-  border-radius: 8px;
-  background: #222;
-}
-
-.drink-time.active {
-  background: #4fd85d;
-  color: black;
-  font-weight: bold;
-}
-
-.drink-time.done {
-  background: #555;
-  text-decoration: line-through;
-}
