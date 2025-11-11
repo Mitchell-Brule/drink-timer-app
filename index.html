@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Drink Timer 🍻</title>
   <link rel="stylesheet" href="style.css">
   <link rel="manifest" href="manifest.json">
@@ -11,33 +11,81 @@
   <div class="app">
     <h1>Drink Timer 🍻</h1>
 
-    <div class="inputs">
-      <label>Weight (kg): <input id="weight" type="number" placeholder="e.g. 75"></label>
-      <label>Age: <input id="age" type="number" placeholder="e.g. 22"></label>
-      <label>Level of drunk desired:
-        <select id="level">
-          <option value="light">Light Buzz</option>
-          <option value="tipsy">Tipsy</option>
-          <option value="drunk">Drunk</option>
-          <option value="obliterated">Obliterated</option>
-        </select>
-      </label>
-      <label>Start Time: <input id="startTime" type="time"></label>
-      <label>End Time: <input id="endTime" type="time"></label>
-      <button id="startPlan">Start Plan</button>
-    </div>
+    <section class="card inputs">
+      <div class="row">
+        <label>Weight (kg)<input id="weight" type="number" placeholder="75"></label>
+        <label>Age<input id="age" type="number" placeholder="22"></label>
+      </div>
 
-    <div id="status" class="hidden">
-      <h2>🍺 Drink Plan:</h2>
-      <ul id="drinkList"></ul>
-      <h2 id="timer">00:00</h2>
-      <p id="drinkStatus"></p>
-      <button id="addDrink">Add Drink</button>
-      <button id="reset">Reset</button>
-    </div>
+      <div class="row">
+        <label>Desired level
+          <select id="level">
+            <option value="light">Light Buzz</option>
+            <option value="tipsy">Tipsy</option>
+            <option value="drunk">Drunk</option>
+            <option value="obliterated">Obliterated</option>
+          </select>
+        </label>
+
+        <label>Start time<input id="startTime" type="time"></label>
+        <label>End time<input id="endTime" type="time"></label>
+      </div>
+
+      <div class="row">
+        <button id="startPlan">Create Plan</button>
+        <button id="clearPlan" class="muted">Clear</button>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <label>Telegram Bot Token (optional, client method)
+          <input id="tgToken" type="text" placeholder="12345:ABC...">
+        </label>
+        <label>Telegram Chat ID (optional)
+          <input id="tgChat" type="text" placeholder="@yourchat or chat_id">
+        </label>
+      </div>
+
+      <p class="hint">For security, see server proxy option below — recommended instead of putting token in client.</p>
+    </section>
+
+    <section id="planSection" class="card hidden">
+      <div class="planHeader">
+        <div>
+          <strong>Plan:</strong> <span id="planSummary"></span>
+        </div>
+        <div>
+          <button id="addDrink">+ Manual Drink</button>
+          <button id="resetCount" class="muted">Reset Count</button>
+        </div>
+      </div>
+
+      <div class="statusRow">
+        <div>
+          <div class="label">Drinks consumed</div>
+          <div id="drinksCount" class="big">0</div>
+        </div>
+        <div>
+          <div class="label">Next / countdown</div>
+          <div id="nextTime" class="big">--:--</div>
+        </div>
+      </div>
+
+      <ul id="scheduleList" class="schedule"></ul>
+    </section>
+
+    <footer class="card muted small">
+      Works offline after first load. Notifications require permission. For background push when closed, deploy the secure Telegram server and use Push or server-side messages.
+    </footer>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
+  <script>
+    // register SW
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js').catch(e => console.warn('SW failed', e));
+    }
+  </script>
 </body>
 </html>
-
